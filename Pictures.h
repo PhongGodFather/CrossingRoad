@@ -210,17 +210,17 @@ const picture tree(vector<wstring>{
 });
 
 const picture m1(vector<wstring>{
-    L" o ",
+        L" o ",
         L"╱|╲",
         L"╱ ╲"
 });
 const picture m2(vector<wstring>{
-    L"╲ o ╱",
+        L"╲ o ╱",
         L"  |  ",
         L" ╱ ╲ "
 });
 const picture m3(vector<wstring>{
-    L"_ o ",
+        L"_ o ",
         L" ╱╲",
         L"| ╲"
 });
@@ -240,7 +240,7 @@ const picture m6(vector<wstring>{
         L"╱o╲"
 });
 const picture m7(vector<wstring>{
-    L"   |__",
+        L"   |__",
         L" o/   ",
         L"╱ )   "
 });
@@ -254,7 +254,8 @@ const picture m9(vector<wstring>{
     L"╱╲ ",
     L"╱ |"
 });
-const vector<picture>manAnim{ m1, m2, m3, m4, m5, m6, m7, m8, m9, m2, m1 };
+const vector<picture>manAnimLeft{ m1, m2, m3, m4, m5, m6, m7, m8, m9, m2, m1 };
+const vector<picture> manAnimRight{ m1,m2,m9,m8,m7,m6,m5,m4,m3,m2,m1 };
 
 const picture duck1(vector<wstring>{
     L"  _     ",
@@ -323,7 +324,8 @@ const picture mainMovingL(vector<wstring>{
         L" |     ||",
         L" (_(_ʃ-╯ "
 });
-const vector<picture> mainAnim{ mainCharacterL, mainMovingL, mainCharacterR, mainMovingR };
+const vector<picture> mainAnimLeft{ mainCharacterL, mainMovingL};
+const vector<picture> mainAnimRight{ mainCharacterR, mainMovingR };
 
 const picture title(vector<wstring>{
     L" _____                   _                                    _ ",
