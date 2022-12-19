@@ -127,7 +127,6 @@ const picture intro2(vector<wstring>{
 
 const vector<picture> introAnim{ intro1, intro2 };
 const picture christmasTree(vector<wstring>{
-    L"   ✶",
     L"   ╱╲",
     L"  ╱__╲",
     L"  ╱  ╲",
@@ -135,6 +134,9 @@ const picture christmasTree(vector<wstring>{
     L" ╱    ╲",
     L"╱______╲",
     L"   |_|"
+});
+const picture star(vector<wstring>{
+    L"✶"
 });
 
 const picture deer1(vector<wstring>{
