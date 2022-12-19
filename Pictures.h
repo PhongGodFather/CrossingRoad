@@ -126,6 +126,16 @@ const picture intro2(vector<wstring>{
     L"\\____________/"});
 
 const vector<picture> introAnim{ intro1, intro2 };
+const picture christmasTree(vector<wstring>{
+    L"   ✶",
+    L"   ╱╲",
+    L"  ╱__╲",
+    L"  ╱  ╲",
+    L" ╱____╲",
+    L" ╱    ╲",
+    L"╱______╲",
+    L"   |_|"
+});
 
 const picture deer1(vector<wstring>{
         L"    (__)",
@@ -156,30 +166,30 @@ const picture deer4(vector<wstring>{
 const vector<picture> deerAnim_left{ deer3, deer4 };
 
 const picture duck1(vector<wstring>{
-    L"  _     ",
+        L"  _     ",
         L"<(·)___¸",
-        L" ( ._›/ ",
+        L" ( ───/ ",
         L"  ˋ--ˊ  "
 });
 const picture duck2(vector<wstring>{
-    L"  _     ",
+        L"  _     ",
         L"<(‐)___¸",
-        L" ( .ˎ╱/ ",
-        L"  ˋ--ˊ  "
+        L" ( .  ╱ ",
+        L"  ˋ-╲╱  "
 });
 const vector<picture> duckAnimLeft{ duck1, duck2 };
 
 const picture duck3(vector<wstring>{
-    L"     _  ",
+        L"     _  ",
         L"ι___(·)>",
-        L" ╲‹_. ) ",
+        L" ╲─── ) ",
         L"  ˋ--ˊ  "
 });
 const picture duck4(vector<wstring>{
-    L"     _  ",
+        L"     _  ",
         L"ι___(‐)>",
-        L" ╲╲‚. ) ",
-        L"  ˋ--ˊ  "
+        L" ╲  . ) ",
+        L"  ╲╱-ˊ  "
 });
 const vector<picture> duckAnimRight{ duck3, duck4 };
 
