@@ -4,21 +4,6 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-class Position
-{
-public:
-    int x, y;
-    Position()
-    {
-        x = 0;
-        y = 0;
-    }
-    Position(int PosX, int PosY)
-    {
-        x = PosX;
-        y = PosY;
-    }
-};
 enum COLOUR // color initialization
 {
     FG_BLACK = 0x0000,
@@ -170,8 +155,64 @@ const picture deer4(vector<wstring>{
 });
 const vector<picture> deerAnim_left{ deer3, deer4 };
 
+const picture duck1(vector<wstring>{
+    L"  _     ",
+        L"<(·)___¸",
+        L" ( ._›/ ",
+        L"  ˋ--ˊ  "
+});
+const picture duck2(vector<wstring>{
+    L"  _     ",
+        L"<(‐)___¸",
+        L" ( .ˎ╱/ ",
+        L"  ˋ--ˊ  "
+});
+const vector<picture> duckAnimLeft{ duck1, duck2 };
+
+const picture duck3(vector<wstring>{
+    L"     _  ",
+        L"ι___(·)>",
+        L" ╲‹_. ) ",
+        L"  ˋ--ˊ  "
+});
+const picture duck4(vector<wstring>{
+    L"     _  ",
+        L"ι___(‐)>",
+        L" ╲╲‚. ) ",
+        L"  ˋ--ˊ  "
+});
+const vector<picture> duckAnimRight{ duck3, duck4 };
+
+const picture mainCharacterR(vector<wstring>{
+        L"   ˏ___ˎ",
+        L"ˏ_⌠ (__)",
+        L"||     |",
+        L"╰-ʅ_)-ʅ_)"
+});
+const picture mainMovingR(vector<wstring>{
+        L"   ˏ___ˎ",
+        L"ˏ_⌠ (__)",
+        L"||     |",
+        L"╰--ʅ_)_) "
+});
+
+const picture mainCharacterL(vector<wstring>{
+        L" ˏ___ˎ   ",
+        L" (__) ᶩ_ˎ",
+        L" |     ||",
+        L"(_ʃ-(_ʃ╯"
+});
+const picture mainMovingL(vector<wstring>{
+        L" ˏ___ˎ   ",
+        L" (__) ᶩ_ˎ",
+        L" |     ||",
+        L" (_(_ʃ-╯"
+});
+const vector<picture> mainAnim{ mainCharacterL, mainMovingL, mainCharacterR, mainMovingR };
+const vector<picture> mainAnimLeft{ mainCharacterL, mainMovingL };
+const vector<picture> mainAnimRight{ mainCharacterR, mainMovingR };
+
 const picture explosion(vector<wstring>{
-        L"         BOOM!!!",
         L"     ˷ ₍˷  ˷ ₎ ˷ ₎˷",
         L"   (˷ ₍ ( ₍  )˷  ₎˷˷)",
         L" ( (  (    )   `)  ) ˷)",
@@ -183,7 +224,7 @@ const picture explosion(vector<wstring>{
 });
 
 const picture tomb(vector<wstring>{
-    L"   _",
+        L"   _",
         L" _|R|_",
         L"│_ I _│",
         L" ╭|P|╮",
@@ -210,17 +251,17 @@ const picture tree(vector<wstring>{
 });
 
 const picture m1(vector<wstring>{
-        L" o ",
+    L" o ",
         L"╱|╲",
         L"╱ ╲"
 });
 const picture m2(vector<wstring>{
-        L"╲ o ╱",
+    L"╲ o ╱",
         L"  |  ",
         L" ╱ ╲ "
 });
 const picture m3(vector<wstring>{
-        L"_ o ",
+    L"_ o ",
         L" ╱╲",
         L"| ╲"
 });
@@ -240,7 +281,7 @@ const picture m6(vector<wstring>{
         L"╱o╲"
 });
 const picture m7(vector<wstring>{
-        L"   |__",
+    L"   |__",
         L" o/   ",
         L"╱ )   "
 });
@@ -254,36 +295,9 @@ const picture m9(vector<wstring>{
     L"╱╲ ",
     L"╱ |"
 });
-const vector<picture>manAnimLeft{ m1, m2, m3, m4, m5, m6, m7, m8, m9, m2, m1 };
+const vector<picture> manAnim{ m1, m2, m3, m4, m5, m6, m7, m8, m9, m2, m1 };
+const vector<picture> manAnimLeft{ m1, m2, m3, m4, m5, m6, m7, m8, m9, m2, m1 };
 const vector<picture> manAnimRight{ m1,m2,m9,m8,m7,m6,m5,m4,m3,m2,m1 };
-
-const picture duck1(vector<wstring>{
-    L"  _     ",
-    L"<(·)___¸",
-    L" ( ._›/ ",
-    L"  ˋ--ˊ  "
-});
-const picture duck2(vector<wstring>{
-        L"  _     ",
-        L"<(‐)___¸",
-        L" ( ._›/ ",
-        L"  ˋ--ˊ  "
-});
-const vector<picture> duckAnimLeft{ duck1, duck2 };
-
-const picture duck3(vector<wstring>{
-    L"     _  ",
-    L"ι___(·)>",
-    L" ╲‹_. ) ",
-    L"  ˋ--ˊ  "
-});
-const picture duck4(vector<wstring>{
-        L"     _  ",
-        L"ι___(‐)>",
-        L" ╲‹_. ) ",
-        L"  ˋ--ˊ  "
-});
-const vector<picture> duckAnimRight{ duck3, duck4 };
 
 const picture trafficLight(vector<wstring>{
     L"┌─┐",
@@ -293,39 +307,11 @@ const picture trafficLight(vector<wstring>{
 });
 
 const picture ded_man(vector<wstring>{
-        L"   (ˉ⁾⁽ˉ)",
+    L"   (ˉ⁾⁽ˉ)",
         L" ╭_/  /_╮",
         L" |     ||",
         L"(_ʃ-(_ʃ╯"
 });
-
-const picture mainCharacterR(vector<wstring>{
-        L"   ˏ___ˎ",
-        L"ˏ_⌠ (__)",
-        L"||     |",
-        L"╰-ʅ_)-ʅ_)"
-});
-const picture mainMovingR(vector<wstring>{
-        L"   ˏ___ˎ",
-        L"ˏ_⌠ (__)",
-        L"||     |",
-        L"╰--ʅ_)_) "
-});
-
-const picture mainCharacterL(vector<wstring>{
-        L" ˏ___ˎ   ",
-        L" (__) ᶩ_ˎ",
-        L" |     ||",
-        L"(_ʃ-(_ʃ╯ "
-});
-const picture mainMovingL(vector<wstring>{
-        L" ˏ___ˎ   ",
-        L" (__) ᶩ_ˎ",
-        L" |     ||",
-        L" (_(_ʃ-╯ "
-});
-const vector<picture> mainAnimLeft{ mainCharacterL, mainMovingL};
-const vector<picture> mainAnimRight{ mainCharacterR, mainMovingR };
 
 const picture title(vector<wstring>{
     L" _____                   _                                    _ ",
@@ -335,7 +321,7 @@ const picture title(vector<wstring>{
     L"| \\__/\\ | | (_) \\__ \\__ \\ | | | | (_| |  | | | (_) | (_| | (_| |",
     L" \\____/_|  \\___/|___/___/_|_| |_|\\__, |  |_|  \\___/ \\__,_|\\__,_|",
     L"                                  __/ |                        ",
-        L"                                 |___/                         "});
+    L"                                 |___/                         "});
 
 const picture endGame(vector<wstring>{
 
@@ -355,7 +341,7 @@ const picture endGame(vector<wstring>{
 
 const picture winGame(vector<wstring>{
 
-        L" .----------------.  .----------------.  .-----------------. .-----------------. .----------------.  .----------------. ",
+    L" .----------------.  .----------------.  .-----------------. .-----------------. .----------------.  .----------------. ",
         L"| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |",
         L"| | _____  _____ | || |     _____    | || | ____  _____  | || | ____  _____  | || |  _________   | || |  _______     | |",
         L"| ||_   _||_   _|| || |    |_   _|   | || ||_   ╲|_   _| | || ||_   ╲|_   _| | || | |_   ___  |  | || | |_   __ ╲    | |",
