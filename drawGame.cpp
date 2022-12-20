@@ -359,3 +359,134 @@ void Game::drawNewGame()
 	}
 	clearConsole();
 }
+
+void Game::drawGame()
+{
+	
+	// what about using the damn stack and queue to pop and delete stuff
+	while (state == playGame)
+	{
+		int countCar = 0, countTruck = 0, countBird = 0, countDeer = 0;
+		// counting stuff
+		for (auto i : obstacleList)
+		{
+			if (i->getName() == "Car") countCar++;
+			else if (i->getName() == "Bird") countBird++;
+			else if (i->getName() == "Deer") countDeer++;
+			else countTruck++;
+		}
+		drawBorder();
+		updatePosObject();
+
+		if (!updatePosPlayer(MOVING))
+			break;
+		MOVING = ' '; // avoid further moving
+
+		wstring hearts = L"";
+		for (int i = 0; i < player->getHealth() / 10; i++)
+			hearts += L'♥';
+		drawButton(ScreenWidth - offset_box + 2, 30, L"W,A,S,D để di chuyển");
+		drawButton(ScreenWidth - offset_box + 2, 35, L"ESC để pause game");
+
+		drawButton(ScreenWidth - offset_box + 5, 1, L"MÁU: " + hearts + L" ", bgColor | FG_GREEN);
+		drawButton(ScreenWidth - offset_box + 5, 4, L"MÀN CHƠI: " + to_wstring(player->getLevel()) + L" ", bgColor | FG_GREEN);
+
+		drawButton(ScreenWidth - offset_box + 5, 7, L"SỐ XE HƠI: " + to_wstring(countCar) + L" ", bgColor | FG_GREEN);
+		drawButton(ScreenWidth - offset_box + 5, 10, L"SỐ XE TẢI: " + to_wstring(countTruck) + L" ", bgColor | FG_GREEN);
+		drawButton(ScreenWidth - offset_box + 5, 13, L"SỐ CHIM: " + to_wstring(countBird) + L" ", bgColor | FG_GREEN);
+		drawButton(ScreenWidth - offset_box + 5, 16, L"SỐ NAI: " + to_wstring(countDeer) + L" ", bgColor | FG_GREEN);
+		drawButton(ScreenWidth - offset_box + 5, 19, L"SỐ ĐÈN: " + to_wstring(lights.size()) + L" ", bgColor | FG_GREEN);
+
+		// draw lines
+		FillArea(1, 4, L'━', ScreenWidth - offset_box - 1, 1, bgColor | FG_DARK_GREEN);
+		FillArea(1, 9, L'━', ScreenWidth - offset_box - 1, 1, bgColor | FG_DARK_GREEN);
+		FillArea(1, 14, L'━', ScreenWidth - offset_box - 1, 1, bgColor | FG_DARK_GREEN);
+		FillArea(1, 19, L'━', ScreenWidth - offset_box - 1, 1, bgColor | FG_DARK_GREEN);
+		FillArea(1, 24, L'━', ScreenWidth - offset_box - 1, 1, bgColor | FG_DARK_GREEN);
+		FillArea(1, 29, L'━', ScreenWidth - offset_box - 1, 1, bgColor | FG_DARK_GREEN);
+		FillArea(1, 34, L'━', ScreenWidth - offset_box - 1, 1, bgColor | FG_DARK_GREEN);
+		FillArea(1, 39, L'━', ScreenWidth - offset_box - 1, 1, bgColor | FG_DARK_GREEN);
+
+		// draw box and bla bla
+		drawBox(ScreenWidth - 30, 0, 30, ScreenHeight, bgColor | FG_DARK_CYAN);
+		FillArea(ScreenWidth - 29, 22, L'━', 28, 1, bgColor | FG_DARK_CYAN); // draw a line
+		addChar(ScreenWidth - 30, 22, L'┣', bgColor | FG_DARK_CYAN);
+		addChar(ScreenWidth - 1, 22, L'┫', bgColor | FG_CYAN);
+
+		drawObject();
+		drawPlayer();
+
+		for (auto i : obstacleList)
+		{
+			if (player->isImpact(i))
+			{
+				playHitSound();
+				if (player->isDead()) goto game_over;
+
+				FillArea(player->x, player->y, L' ', player->curImg().getWidth(), player->curImg().getHeight(), bgColor);
+				drawPicture(player->x, player->y, explosion, bgColor | FG_DARK_RED);
+
+				drawConsole(); // the main thing we need
+				Sleep(1000); // hehe lol :33
+				FillArea(player->x, player->y, L' ', player->curImg().getWidth(), player->curImg().getHeight(), bgColor);
+				FillArea(player->x, player->y, L' ', explosion.getWidth(), explosion.getHeight(), bgColor);
+
+				player->y = ScreenHeight - player->curImg().getHeight() - 1;
+				player->x = (ScreenWidth - offset_box) / 2 - player->curImg().getWidth();
+				break;
+			}
+		}
+		drawConsole(); // the main thing we need
+		
+	}
+game_over:
+	clearConsole();
+	if (player->isDead())
+	{
+		// clear up RAM
+		for (auto i : obstacleList)
+			delete i;
+		obstacleList.clear();
+		for (auto i : lights)
+			delete i;
+		lights.clear();
+
+		state = lose;
+		drawGameDead();
+	}
+}
+void Game::drawGameWin()
+{
+	Animation dance = manAnimator;
+	Animation dance1 = dancingAnimator;
+	while (state == win)
+	{
+		dance.play();
+		dance1.play();
+		FillArea(1, 1, L' ', ScreenWidth - offset_box - 1, ScreenHeight - 2, bgColor);
+		drawString((ScreenWidth - offset_box) / 2 - tomb.getWidth() - 5, ScreenHeight / 2, L"YOU WON THE GAME, PRESS ENTER TO RETURN ... ", bgColor | FG_BLUE);
+		drawPicture(50, 3, winGame, bgColor | FG_DARK_RED);
+		
+		drawPicture(100, 40, dance.getCurFrame(), bgColor | FG_DARK_RED);
+		drawPicture(100, 35, dance1.getCurFrame(), bgColor | FG_DARK_RED);
+		drawConsole();
+	}
+	clearConsole();
+}
+void Game::drawGameDead()
+{
+	Animation dance = manAnimator;
+	while (state == lose)
+	{
+		dance.play();
+
+		FillArea(1, 1, L' ', ScreenWidth - offset_box - 1, ScreenHeight - 2, bgColor);
+		drawPicture(20, 3, endGame, bgColor | FG_DARK_RED);
+		drawPicture((ScreenWidth - offset_box) / 2 - tomb.getWidth(), ScreenHeight / 2 - tomb.getHeight(), tomb, bgColor | FG_DARK_GREY);
+		drawString((ScreenWidth - offset_box) / 2 - tomb.getWidth() - 5, ScreenHeight / 2, L"PRESS ENTER TO RETURN TO MENU ... ", bgColor | FG_BLUE);
+		drawPicture((ScreenWidth - offset_box) / 2 - tomb.getWidth(), ScreenHeight / 2 + 3, ded_man, bgColor | FG_DARK_GREY);
+		drawPicture(100, 40, dance.getCurFrame(), bgColor | FG_DARK_RED);
+		drawConsole();
+	}
+	clearConsole();
+}
